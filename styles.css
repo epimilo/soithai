@@ -1,0 +1,141 @@
+:root {
+  --page-bg: #d9d0b6;
+  --paper: #f2efe9;
+  --ink: #3c2e2d;
+  --shadow: rgba(26, 25, 23, 0.28);
+  --frame: rgba(74, 49, 37, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--page-bg);
+  color: var(--ink);
+}
+
+.page-shell {
+  width: min(92vw, 1200px);
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.gatefold {
+  position: relative;
+  width: min(82vw, 1100px);
+  height: min(80vh, 760px);
+  perspective: 2200px;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 46px 36px rgba(28, 22, 18, 0.18));
+}
+
+.panel,
+.flap {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid rgba(63, 55, 45, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transform-style: preserve-3d;
+}
+
+.panel img,
+.flap img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.flap {
+  width: 25%;
+  z-index: 2;
+}
+
+.flap .face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.flap .front {
+  z-index: 2;
+}
+
+.flap .back {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+.flap-left {
+  left: 0;
+  transform-origin: right center;
+  animation: flap-left 8s ease-in-out infinite;
+}
+
+.flap-right {
+  right: 0;
+  transform-origin: left center;
+  animation: flap-right 8s ease-in-out infinite;
+}
+
+.panel {
+  width: 25%;
+  z-index: 1;
+}
+
+.panel-left {
+  left: 25%;
+}
+
+.panel-right {
+  left: 50%;
+}
+
+@keyframes flap-left {
+  0%, 18% {
+    transform: rotateY(0deg);
+  }
+  45%, 56% {
+    transform: rotateY(90deg) translateX(10px);
+  }
+  80%, 100% {
+    transform: rotateY(168deg) translateX(12px);
+  }
+}
+
+@keyframes flap-right {
+  0%, 18% {
+    transform: rotateY(0deg);
+  }
+  45%, 56% {
+    transform: rotateY(-90deg) translateX(-10px);
+  }
+  80%, 100% {
+    transform: rotateY(-168deg) translateX(-12px);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-shell {
+    padding: 0.5rem;
+  }
+
+  .gatefold {
+    width: min(90vw, 780px);
+    height: min(72vh, 540px);
+  }
+}
